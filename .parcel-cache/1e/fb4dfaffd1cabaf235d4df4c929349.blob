@@ -1,0 +1,21 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = Game = (()=>{
+    const ROCK = 'rock';
+    const PAPER = 'paper';
+    const SCISSORS = 'scissors';
+    return {
+        test: ()=>console.log('test')
+        ,
+        makeMove: ()=>[
+                ROCK,
+                PAPER,
+                SCISSORS
+            ][Math.floor(Math.random() * 3)]
+        ,
+        evaluate: (playerMove, cpuMove)=>{
+            if (playerMove === ROCK && cpuMove === SCISSORS || playerMove === SCISSORS && cpuMove === PAPER || playerMove === PAPER && cpuMove === ROCK) return 'Player wins';
+            else return 'Computer wins';
+        }
+    };
+})();

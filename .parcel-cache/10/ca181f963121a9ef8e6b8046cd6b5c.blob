@@ -1,0 +1,14 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _game = require("./game");
+var _gameDefault = parcelHelpers.interopDefault(_game);
+var _shared = require("./shared");
+console.log(_gameDefault.default.makeMove());
+console.log(_gameDefault.default.makeMove());
+console.log(_gameDefault.default.makeMove());
+console.log(_gameDefault.default.makeMove());
+console.log(_gameDefault.default.makeMove());
+for(let i = 0; i < 10; i++){
+    const p = [_shared.ROCK, _shared.PAPER, _shared.SCISSORS][Math.floor(Math.random() * 3)];
+    const c = _gameDefault.default.makeMove();
+    _gameDefault.default.evaluate(p, c);
+}

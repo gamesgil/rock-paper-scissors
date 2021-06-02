@@ -1,0 +1,4 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _game = require("./game");
+var _gameDefault = parcelHelpers.interopDefault(_game);
+_gameDefault.default.test();

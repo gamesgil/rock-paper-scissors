@@ -1,0 +1,8 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _game = require("./game");
+var _gameDefault = parcelHelpers.interopDefault(_game);
+console.log(_gameDefault.default.makeMove());
+console.log(_gameDefault.default.makeMove());
+console.log(_gameDefault.default.makeMove());
+console.log(_gameDefault.default.makeMove());
+console.log(_gameDefault.default.makeMove());

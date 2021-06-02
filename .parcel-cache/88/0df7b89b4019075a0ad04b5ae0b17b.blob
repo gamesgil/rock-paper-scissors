@@ -1,0 +1,11 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ROCK", ()=>ROCK
+);
+parcelHelpers.export(exports, "PAPER", ()=>PAPER
+);
+parcelHelpers.export(exports, "SCISSORS", ()=>SCISSORS
+);
+const ROCK = 'rock';
+const PAPER = 'paper';
+const SCISSORS = 'scissors';

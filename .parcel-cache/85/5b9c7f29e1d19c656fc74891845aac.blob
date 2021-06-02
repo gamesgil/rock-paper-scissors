@@ -1,0 +1,8 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const Game = (()=>{
+    return {
+        test: ()=>console.log('test')
+    };
+})();
+exports.default = Game;

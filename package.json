@@ -1,0 +1,24 @@
+{
+  "name": "rock-paper-scissors",
+  "version": "1.0.0",
+  "description": "Demo game for tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gamesgil/rock-paper-scissors.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gamesgil/rock-paper-scissors/issues"
+  },
+  "homepage": "https://github.com/gamesgil/rock-paper-scissors#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.3.1"
+  }
+}

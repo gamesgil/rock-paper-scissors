@@ -1,0 +1,16 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _shared = require("./shared");
+exports.default = Game = (()=>{
+    return {
+        test: ()=>console.log('test')
+        ,
+        makeMove: ()=>[_shared.ROCK, _shared.PAPER, _shared.SCISSORS][Math.floor(Math.random() * 3)]
+        ,
+        evaluate: (playerMove, cpuMove)=>{
+            console.log(`Player: ${playerMove}, Computer: ${cpuMove}`);
+            if (playerMove === _shared.ROCK && cpuMove === _shared.SCISSORS || playerMove === _shared.SCISSORS && cpuMove === _shared.PAPER || playerMove === _shared.PAPER && cpuMove === _shared.ROCK) return 'Player wins';
+            else return 'Computer wins';
+        }
+    };
+})();
