@@ -411,7 +411,6 @@ const domElements = {
 const view = new _view.View(domElements);
 const game = new _game.Game();
 const controller = new _controller.Controller(game, view, domElements);
-controller.init();
 
 },{"./game":"3qa7e","./view":"3bev2","../style.css":"3jBLa","./controller":"BvQis"}],"3qa7e":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -423,7 +422,6 @@ class Game {
     constructor(){
         this.cpuScore = 0;
         this.playerScore = 0;
-        this.moves = 0;
     }
     makeMove() {
         return [_shared.ROCK, _shared.PAPER, _shared.SCISSORS][Math.floor(Math.random() * 3)];
@@ -491,6 +489,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "View", ()=>View
 );
+var _shared = require("./shared");
 class View {
     constructor(domElements){
         this.domElements = domElements;
@@ -512,29 +511,29 @@ class View {
     }
     show(elementName) {
         switch(elementName){
-            case 'player-rock':
+            case 'player-' + _shared.ROCK:
                 this.domElements.player.icons.rock.classList.remove('hidden');
                 break;
-            case 'player-paper':
+            case 'player-' + _shared.PAPER:
                 this.domElements.player.icons.paper.classList.remove('hidden');
                 break;
-            case 'player-scissors':
+            case 'player-' + _shared.SCISSORS:
                 this.domElements.player.icons.scissors.classList.remove('hidden');
                 break;
-            case 'cpu-rock':
+            case 'cpu-' + _shared.ROCK:
                 this.domElements.cpu.icons.rock.classList.remove('hidden');
                 break;
-            case 'cpu-paper':
+            case 'cpu-' + _shared.PAPER:
                 this.domElements.cpu.icons.paper.classList.remove('hidden');
                 break;
-            case 'cpu-scissors':
+            case 'cpu-' + _shared.SCISSORS:
                 this.domElements.cpu.icons.scissors.classList.remove('hidden');
                 break;
         }
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR"}],"3jBLa":[function() {},{}],"BvQis":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR","./shared":"4Ab5J"}],"3jBLa":[function() {},{}],"BvQis":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Controller", ()=>Controller
@@ -544,6 +543,8 @@ class Controller {
     constructor(game, view, domElements){
         this.game = game;
         this.view = view;
+        this.view.hideIcons();
+        this.view.updateScore(this.game.playerScore, this.game.cpuScore);
         domElements.player.buttons.rock.addEventListener('click', ()=>{
             this.play(_shared.ROCK);
         });
@@ -553,10 +554,6 @@ class Controller {
         domElements.player.buttons.scissors.addEventListener('click', ()=>{
             this.play(_shared.SCISSORS);
         });
-    }
-    init() {
-        this.view.hideIcons();
-        this.view.updateScore(this.game.playerScore, this.game.cpuScore);
     }
     play(playerMove) {
         this.view.hideIcons();

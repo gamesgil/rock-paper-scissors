@@ -32,5 +32,4 @@ const domElements = {
 const view = new View(domElements)
 const game = new Game()
 const controller = new Controller(game, view, domElements)
-controller.init()
 
