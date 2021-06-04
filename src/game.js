@@ -3,8 +3,7 @@ import { ROCK, PAPER, SCISSORS } from './shared'
 export class Game {
     constructor() {
         this.cpuScore = 0
-        this.playerSco
-        re = 0
+        this.playerScore = 0
     }
 
     makeMove() {

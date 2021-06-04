@@ -1,3 +1,5 @@
+import { ROCK, PAPER, SCISSORS } from './shared'
+
 export class View {
     constructor(domElements) {
         this.domElements = domElements
@@ -24,27 +26,27 @@ export class View {
 
     show(elementName) {
         switch (elementName) {
-            case 'player-rock':
+            case 'player-' + ROCK:
                 this.domElements.player.icons.rock.classList.remove('hidden')
                 break
 
-            case 'player-paper':
+            case 'player-' + PAPER:
                 this.domElements.player.icons.paper.classList.remove('hidden')
                 break
 
-            case 'player-scissors':
+            case 'player-' + SCISSORS:
                 this.domElements.player.icons.scissors.classList.remove('hidden')
                 break
 
-            case 'cpu-rock':
+            case 'cpu-' + ROCK:
                 this.domElements.cpu.icons.rock.classList.remove('hidden')
                 break
 
-            case 'cpu-paper':
+            case 'cpu-' + PAPER:
                 this.domElements.cpu.icons.paper.classList.remove('hidden')
                 break
 
-            case 'cpu-scissors':
+            case 'cpu-' + SCISSORS:
                 this.domElements.cpu.icons.scissors.classList.remove('hidden')
                 break
         }
