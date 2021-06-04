@@ -4,7 +4,6 @@ export class Game {
     constructor() {
         this.cpuScore = 0
         this.playerScore = 0
-        this.moves = 0
     }
 
     makeMove() {
