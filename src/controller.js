@@ -5,6 +5,9 @@ export class Controller {
         this.game = game
         this.view = view
 
+        this.view.hideIcons()
+        this.view.updateScore(this.game.playerScore, this.game.cpuScore)
+
         domElements.player.buttons.rock.addEventListener('click', () => {
             this.play(ROCK)
         })
@@ -16,11 +19,6 @@ export class Controller {
         domElements.player.buttons.scissors.addEventListener('click', () => {
             this.play(SCISSORS)
         })
-    }
-
-    init() {
-        this.view.hideIcons()
-        this.view.updateScore(this.game.playerScore, this.game.cpuScore)
     }
 
     play(playerMove) {
