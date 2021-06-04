@@ -1,23 +1,31 @@
 import { ROCK, PAPER, SCISSORS } from './shared'
 
-export default Game = (() => {
-    return {
-        test: () => console.log('test'),
+export class Game {
+    constructor() {
+        this.cpuScore = 0
+        this.playerScore = 0
+        this.moves = 0
+    }
 
-        makeMove: () => [ROCK, PAPER, SCISSORS][Math.floor(Math.random() * 3)],
+    makeMove() {
+        return [ROCK, PAPER, SCISSORS][Math.floor(Math.random() * 3)]
+    }
 
-        evaluate: (playerMove, cpuMove) => {
-            console.log(`Player: ${playerMove}, Computer: ${cpuMove}`)
+    evaluate(playerMove, cpuMove) {
+        console.log(`Player: ${playerMove}, Computer: ${cpuMove}`)
 
-            if (playerMove === cpuMove) {
-                return 'Draw'
-            } else if (playerMove === ROCK && cpuMove === SCISSORS ||
-                playerMove === SCISSORS && cpuMove === PAPER ||
-                playerMove === PAPER && cpuMove === ROCK) {
-                return 'Player wins'
-            } else {
-                return 'Computer wins'
-            }
+        if (playerMove === cpuMove) {
+            return 'Draw'
+        } else if (playerMove === ROCK && cpuMove === SCISSORS ||
+            playerMove === SCISSORS && cpuMove === PAPER ||
+            playerMove === PAPER && cpuMove === ROCK) {
+            this.playerScore++
+
+            return 'Player wins'
+        } else {
+            this.cpuScore++
+
+            return 'Computer wins'
         }
     }
-})();
+}

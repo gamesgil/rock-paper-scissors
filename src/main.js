@@ -1,15 +1,36 @@
-import Game from './game'
-import { ROCK, PAPER, SCISSORS } from './shared'
+import '../style.css'
 
-console.log(Game.makeMove())
-console.log(Game.makeMove())
-console.log(Game.makeMove())
-console.log(Game.makeMove())
-console.log(Game.makeMove())
+import { Game } from './game'
+import { View } from './view'
+import { Controller } from './controller'
 
-for (let i = 0; i < 10; i++) {
-    const p = [ROCK, PAPER, SCISSORS][Math.floor(Math.random() * 3)]
-    const c = Game.makeMove()
 
-    console.log(Game.evaluate(p, c))
+const domElements = {
+    player: {
+        score: document.getElementById('playerScore'),
+        buttons: {
+            rock: document.querySelector('.btn.rock'),
+            paper: document.querySelector('.btn.paper'),
+            scissors: document.querySelector('.btn.scissors')
+        },
+        icons: {
+            rock: document.querySelector('.player > .icons > .rock'),
+            paper: document.querySelector('.player > .icons > .paper'),
+            scissors: document.querySelector('.player > .icons > .scissors')
+        }
+    },
+    cpu: {
+        score: document.getElementById('cpuScore'),
+        icons: {
+            rock: document.querySelector('.cpu > .icons > .rock'),
+            paper: document.querySelector('.cpu > .icons > .paper'),
+            scissors: document.querySelector('.cpu > .icons > .scissors')
+        }
+
+    }
 }
+const view = new View(domElements)
+const game = new Game()
+const controller = new Controller(game, view, domElements)
+controller.init()
+

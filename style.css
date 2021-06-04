@@ -1,0 +1,52 @@
+button.btn {
+    cursor: pointer;
+    border-style: solid;
+    padding: 1rem;
+    background: rebeccapurple;
+    color: white;
+    border: 3px solid black;
+    border-radius: 1rem;
+    font-size: 2rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+h2 {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.icons > .rock, .icons > .paper, .icons > .scissors {
+    font-size: 10rem;
+}
+.players {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 20rem;
+    justify-content: center;
+}
+
+.player, .cpu {
+    display: flex;
+    flex-direction: column;
+    width: 40rem;
+}
+
+.separator {
+    height: 20rem;
+    border: 5px solid rgb(43, 32, 32);
+    border-radius: 5px;
+}

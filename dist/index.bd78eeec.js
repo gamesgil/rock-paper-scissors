@@ -381,22 +381,67 @@ function hmrAcceptRun(bundle/*: ParcelRequire */ , id/*: string */ ) {
 }
 
 },{}],"30Yv7":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _styleCss = require("../style.css");
 var _game = require("./game");
-var _gameDefault = parcelHelpers.interopDefault(_game);
+var _view = require("./view");
+var _controller = require("./controller");
+const domElements = {
+    player: {
+        score: document.getElementById('playerScore'),
+        buttons: {
+            rock: document.querySelector('.btn.rock'),
+            paper: document.querySelector('.btn.paper'),
+            scissors: document.querySelector('.btn.scissors')
+        },
+        icons: {
+            rock: document.querySelector('.player > .icons > .rock'),
+            paper: document.querySelector('.player > .icons > .paper'),
+            scissors: document.querySelector('.player > .icons > .scissors')
+        }
+    },
+    cpu: {
+        score: document.getElementById('cpuScore'),
+        icons: {
+            rock: document.querySelector('.cpu > .icons > .rock'),
+            paper: document.querySelector('.cpu > .icons > .paper'),
+            scissors: document.querySelector('.cpu > .icons > .scissors')
+        }
+    }
+};
+const view = new _view.View(domElements);
+const game = new _game.Game();
+const controller = new _controller.Controller(game, view, domElements);
+controller.init();
+
+},{"./game":"3qa7e","./view":"3bev2","../style.css":"3jBLa","./controller":"BvQis"}],"3qa7e":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Game", ()=>Game
+);
 var _shared = require("./shared");
-console.log(_gameDefault.default.makeMove());
-console.log(_gameDefault.default.makeMove());
-console.log(_gameDefault.default.makeMove());
-console.log(_gameDefault.default.makeMove());
-console.log(_gameDefault.default.makeMove());
-for(let i = 0; i < 10; i++){
-    const p = [_shared.ROCK, _shared.PAPER, _shared.SCISSORS][Math.floor(Math.random() * 3)];
-    const c = _gameDefault.default.makeMove();
-    console.log(_gameDefault.default.evaluate(p, c));
+class Game {
+    constructor(){
+        this.cpuScore = 0;
+        this.playerScore = 0;
+        this.moves = 0;
+    }
+    makeMove() {
+        return [_shared.ROCK, _shared.PAPER, _shared.SCISSORS][Math.floor(Math.random() * 3)];
+    }
+    evaluate(playerMove, cpuMove) {
+        console.log(`Player: ${playerMove}, Computer: ${cpuMove}`);
+        if (playerMove === cpuMove) return 'Draw';
+        else if (playerMove === _shared.ROCK && cpuMove === _shared.SCISSORS || playerMove === _shared.SCISSORS && cpuMove === _shared.PAPER || playerMove === _shared.PAPER && cpuMove === _shared.ROCK) {
+            this.playerScore++;
+            return 'Player wins';
+        } else {
+            this.cpuScore++;
+            return 'Computer wins';
+        }
+    }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR","./game":"3qa7e","./shared":"4Ab5J"}],"367CR":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR","./shared":"4Ab5J"}],"367CR":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -428,26 +473,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"3qa7e":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _shared = require("./shared");
-exports.default = Game = (()=>{
-    return {
-        test: ()=>console.log('test')
-        ,
-        makeMove: ()=>[_shared.ROCK, _shared.PAPER, _shared.SCISSORS][Math.floor(Math.random() * 3)]
-        ,
-        evaluate: (playerMove, cpuMove)=>{
-            console.log(`Player: ${playerMove}, Computer: ${cpuMove}`);
-            if (playerMove === cpuMove) return 'Draw';
-            else if (playerMove === _shared.ROCK && cpuMove === _shared.SCISSORS || playerMove === _shared.SCISSORS && cpuMove === _shared.PAPER || playerMove === _shared.PAPER && cpuMove === _shared.ROCK) return 'Player wins';
-            else return 'Computer wins';
-        }
-    };
-})();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR","./shared":"4Ab5J"}],"4Ab5J":[function(require,module,exports) {
+},{}],"4Ab5J":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ROCK", ()=>ROCK
@@ -460,6 +486,90 @@ const ROCK = 'rock';
 const PAPER = 'paper';
 const SCISSORS = 'scissors';
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR"}]},["3lSIl","30Yv7"], "30Yv7", "parcelRequire4e0c")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR"}],"3bev2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "View", ()=>View
+);
+class View {
+    constructor(domElements){
+        this.domElements = domElements;
+    }
+    updateScore(playerScore, cpuScore) {
+        this.domElements.player.score.innerText = playerScore;
+        this.domElements.cpu.score.innerText = cpuScore;
+    }
+    hideIcons() {
+        this.hide(this.domElements.player.icons.rock);
+        this.hide(this.domElements.player.icons.paper);
+        this.hide(this.domElements.player.icons.scissors);
+        this.hide(this.domElements.cpu.icons.rock);
+        this.hide(this.domElements.cpu.icons.paper);
+        this.hide(this.domElements.cpu.icons.scissors);
+    }
+    hide(element) {
+        element.classList.add('hidden');
+    }
+    show(elementName) {
+        switch(elementName){
+            case 'player-rock':
+                this.domElements.player.icons.rock.classList.remove('hidden');
+                break;
+            case 'player-paper':
+                this.domElements.player.icons.paper.classList.remove('hidden');
+                break;
+            case 'player-scissors':
+                this.domElements.player.icons.scissors.classList.remove('hidden');
+                break;
+            case 'cpu-rock':
+                this.domElements.cpu.icons.rock.classList.remove('hidden');
+                break;
+            case 'cpu-paper':
+                this.domElements.cpu.icons.paper.classList.remove('hidden');
+                break;
+            case 'cpu-scissors':
+                this.domElements.cpu.icons.scissors.classList.remove('hidden');
+                break;
+        }
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR"}],"3jBLa":[function() {},{}],"BvQis":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Controller", ()=>Controller
+);
+var _shared = require("./shared");
+class Controller {
+    constructor(game, view, domElements){
+        this.game = game;
+        this.view = view;
+        domElements.player.buttons.rock.addEventListener('click', ()=>{
+            this.play(_shared.ROCK);
+        });
+        domElements.player.buttons.paper.addEventListener('click', ()=>{
+            this.play(_shared.PAPER);
+        });
+        domElements.player.buttons.scissors.addEventListener('click', ()=>{
+            this.play(_shared.SCISSORS);
+        });
+    }
+    init() {
+        this.view.hideIcons();
+        this.view.updateScore(this.game.playerScore, this.game.cpuScore);
+    }
+    play(playerMove) {
+        this.view.hideIcons();
+        this.view.show('player-' + playerMove);
+        setTimeout(()=>{
+            const cpuMove = this.game.makeMove();
+            this.game.evaluate(playerMove, cpuMove);
+            this.view.show('cpu-' + cpuMove);
+            this.view.updateScore(this.game.playerScore, this.game.cpuScore);
+        }, 100);
+    }
+}
+
+},{"./shared":"4Ab5J","@parcel/transformer-js/src/esmodule-helpers.js":"367CR"}]},["3lSIl","30Yv7"], "30Yv7", "parcelRequire4e0c")
 
 //# sourceMappingURL=index.bd78eeec.js.map
